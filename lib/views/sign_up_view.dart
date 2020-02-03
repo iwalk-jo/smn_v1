@@ -168,30 +168,56 @@ class _SignUpViewState extends State<SignUpView> {
  
     return Scaffold(
         body:  SingleChildScrollView(
+        scrollDirection: Axis.vertical,
         child: Container(
-          // padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
           color: Theme.of(context).primaryColor,
           height: _height,
           width: _width,
           child: SafeArea(
-            child: Column(
-              // crossAxisAlignment: CrossAxisAlignment.center,
+            child: ListView(
+              shrinkWrap: true,
               children: <Widget>[
-                SizedBox(height: _height * 0.025),
-                showAlert(),
-                SizedBox(height: _height * 0.025),
-                buildHeaderText(),
-                SizedBox(height: _height * 0.05),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Form(
-                    key: formKey,
-                    child: Column(
-                      children: buildInputs() + buildButtons(),
+              Column(
+  
+                 mainAxisAlignment: MainAxisAlignment.center,
+  
+                  crossAxisAlignment: CrossAxisAlignment.start,
+  
+                  children: <Widget>[
+  
+                    SizedBox(height: _height * 0.025),
+  
+                    showAlert(),
+  
+                    SizedBox(height: _height * 0.025),
+  
+                    buildHeaderText(),
+  
+                    SizedBox(height: _height * 0.05),
+  
+                    Padding(
+  
+                      padding: const EdgeInsets.all(20.0),
+  
+                      child: Form(
+  
+                        key: formKey,
+  
+                        child: Column(
+  
+                          children: buildInputs() + buildButtons(),
+  
+                        ),
+  
+                      ),
+  
                     ),
-                  ),
+  
+                  ],
+  
                 ),
-              ],
+],
             ),
           ),
         ),
@@ -248,7 +274,7 @@ class _SignUpViewState extends State<SignUpView> {
       _headerText,
       maxLines: 1,
       textAlign: TextAlign.center,
-      style: bigTextStyle
+      style: mediumTextStyle
     );
   }
 
@@ -267,7 +293,7 @@ class _SignUpViewState extends State<SignUpView> {
           onSaved: (value) => _email = value,
         ),
       );
-      textFields.add(SizedBox(height: 20));
+      textFields.add(SizedBox(height: 10));
       return textFields;
     }
 
@@ -281,7 +307,7 @@ class _SignUpViewState extends State<SignUpView> {
           onSaved: (value) => _firstName = value,
         ),
       );
-      textFields.add(SizedBox(height: 20));
+      textFields.add(SizedBox(height: 10));
 
        textFields.add(
         TextFormField(
@@ -292,7 +318,7 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       );
       
-      textFields.add(SizedBox(height: 20));
+      textFields.add(SizedBox(height: 10));
 
        textFields.add(
         TextFormField(
@@ -302,7 +328,7 @@ class _SignUpViewState extends State<SignUpView> {
           onSaved: (value) => _phone = value,
         ),
       );
-      textFields.add(SizedBox(height: 20));
+      textFields.add(SizedBox(height: 10));
        // add email & password
     textFields.add(
       TextFormField(
@@ -312,7 +338,7 @@ class _SignUpViewState extends State<SignUpView> {
         onSaved: (value) => _email = value,
       ),
     );
-    textFields.add(SizedBox(height: 20));
+    textFields.add(SizedBox(height: 10));
     textFields.add(
       TextFormField(
         validator: PasswordValidator.validate,
@@ -323,7 +349,7 @@ class _SignUpViewState extends State<SignUpView> {
       ),
     );
 
-    textFields.add(SizedBox(height: 20));
+    textFields.add(SizedBox(height: 10));
 
     return textFields;
 
@@ -430,7 +456,7 @@ class _SignUpViewState extends State<SignUpView> {
         onSaved: (value) => _email = value,
       ),
     );
-    textFields.add(SizedBox(height: 20));
+    textFields.add(SizedBox(height: 10));
     textFields.add(
       TextFormField(
         validator: PasswordValidator.validate,
@@ -441,7 +467,7 @@ class _SignUpViewState extends State<SignUpView> {
       ),
     );
 
-    textFields.add(SizedBox(height: 20));
+    textFields.add(SizedBox(height: 10));
 
     return textFields;
   }
