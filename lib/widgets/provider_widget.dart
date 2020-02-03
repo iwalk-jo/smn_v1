@@ -3,7 +3,6 @@ import 'package:smn_v1/services/auth_service.dart';
 
 class Provider extends InheritedWidget {
   final AuthService auth;
-
   Provider({
     Key key,
     Widget child,
@@ -16,5 +15,5 @@ class Provider extends InheritedWidget {
   }
 
   static Provider of(BuildContext context) =>
-      (context.dependOnInheritedWidgetOfExactType() as Provider);
+      (context.inheritFromWidgetOfExactType(Provider) as Provider);
 }

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:smn_v1/widgets/home_widget.dart';
+import 'package:smn_v1/pages/home_page.dart';
+
+import 'package:smn_v1/theme.dart';
 import 'package:smn_v1/views/first_view.dart';
 import 'package:smn_v1/views/sign_up_view.dart';
 import 'package:smn_v1/widgets/provider_widget.dart';
 import 'package:smn_v1/services/auth_service.dart';
+
 
 void main() => runApp(MyApp());
 
@@ -15,15 +18,23 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "SMN V1 App",
         theme: ThemeData(
-          primarySwatch: Colors.green,
+          primaryColor: primaryColor,
+          // primarySwatch: Colors.blue,
         ),
+        debugShowCheckedModeBanner: false,
+
         home: HomeController(),
+
         routes: <String, WidgetBuilder>{
-          '/home': (BuildContext context) => HomeController(),
-          '/signUp': (BuildContext context) =>
-              SignUpView(authFormType: AuthFormType.signUp),
+          '/signUpStudent': (BuildContext context) =>
+              SignUpView(authFormType: AuthFormType.signUpStudent),
+          '/signUpParent': (BuildContext context) =>
+              SignUpView(authFormType: AuthFormType.signUpParent),
           '/signIn': (BuildContext context) =>
               SignUpView(authFormType: AuthFormType.signIn),
+          '/homePage': (BuildContext context) => HomeController(), 
+          // '/parentPage': (BuildContext context) => HomeController(),
+          // '/studentPage': (BuildContext context) => HomeController(),
         },
       ),
     );
@@ -39,7 +50,7 @@ class HomeController extends StatelessWidget {
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;
-          return signedIn ? Home() : FirstView();
+          return signedIn ? HomePage() : FirstView();
         }
         return CircularProgressIndicator();
       },

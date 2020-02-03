@@ -11,7 +11,9 @@ class CustomDialog extends StatelessWidget {
       primaryButtonText,
       primaryButtonRoute,
       secondaryButtonText,
-      secondaryButtonRoute;
+      secondaryButtonRoute,
+      tertiaryButtonText,
+      tertiaryButtonRoute;
 
   CustomDialog(
       {@required this.title,
@@ -19,7 +21,9 @@ class CustomDialog extends StatelessWidget {
       @required this.primaryButtonText,
       @required this.primaryButtonRoute,
       this.secondaryButtonText,
-      this.secondaryButtonRoute});
+      this.secondaryButtonRoute,
+      this.tertiaryButtonText,
+      this.tertiaryButtonRoute});
 
   static const double padding = 20.0;
 
@@ -88,7 +92,27 @@ class CustomDialog extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 10.0),
-                showSecondaryButton(context),
+                 RaisedButton(
+                  color: primaryColor,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0)),
+                  child: AutoSizeText(
+                    secondaryButtonText,
+                    maxLines: 1,
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w200,
+                      color: Colors.white,
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context)
+                        .pushReplacementNamed(secondaryButtonRoute);
+                  },
+                ),
+                SizedBox(height: 10.0),
+                showTertiaryButton(context),
               ],
             ),
           )
@@ -97,11 +121,11 @@ class CustomDialog extends StatelessWidget {
     );
   }
 
-  showSecondaryButton(BuildContext context) {
-    if (secondaryButtonRoute != null && secondaryButtonText != null) {
+  showTertiaryButton(BuildContext context) {
+    if (tertiaryButtonRoute != null && tertiaryButtonText != null) {
       return FlatButton(
         child: AutoSizeText(
-          secondaryButtonText,
+          tertiaryButtonText,
           maxLines: 1,
           style: TextStyle(
             color: primaryColor,
@@ -111,7 +135,7 @@ class CustomDialog extends StatelessWidget {
         ),
         onPressed: () {
           Navigator.of(context).pop();
-          Navigator.of(context).pushReplacementNamed(secondaryButtonRoute);
+          Navigator.of(context).pushReplacementNamed(tertiaryButtonRoute);
         },
       );
     } else {
