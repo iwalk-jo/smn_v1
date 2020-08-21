@@ -2,44 +2,45 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Student {
-  String studentIdNumber;
+  String studentID;
   String firstName;
   String lastName;
-  String email;
-  String phoneNumber;
-  String dateOfBirth;
   String studentClass;
+  // String email;
+  // String phoneNumber;
+  // String dateOfBirth;
   String documentId;
 
   Student(
-    this.studentIdNumber, 
+    this.studentID, 
     this.firstName, 
-    this.lastName, 
-    this.email,
-    this.phoneNumber, 
-    this.dateOfBirth, 
-    this.studentClass
+    this.lastName,
+    this.studentClass,
+    // this.email,
+    // this.phoneNumber, 
+    // this.dateOfBirth, 
+    
     );
 
 // formatting for upload to Firbase when creating the student
   Map<String, dynamic> toJson() => {
-    'studentIdNumber': studentIdNumber,
+    'studentID': studentID,
     'firstName': firstName,
     'lastName': lastName,
-    'email': email,
-    'phoneNumber': phoneNumber,
-    'dateOfBirth': dateOfBirth,
     'studentClass': studentClass,
+    // 'email': email,
+    // 'phoneNumber': phoneNumber,
+    // 'dateOfBirth': dateOfBirth,
   };
 
   // creating a Student object from a firebase snapshot
   Student.fromSnapshot(DocumentSnapshot snapshot) :
-      studentIdNumber = snapshot['studentIdNumber'],
+      studentID = snapshot['studentID'],
       firstName = snapshot['firstName'],
       lastName = snapshot['lastName'],
-      email = snapshot['email'],
-      phoneNumber = snapshot['phoneNumber'],
-      dateOfBirth = snapshot['dateOfBirth'].toDate(),
       studentClass = snapshot['studentClass'],
+      // email = snapshot['email'],
+      // phoneNumber = snapshot['phoneNumber'],
+      // dateOfBirth = snapshot['dateOfBirth'].toDate(),
       documentId = snapshot.documentID;
 }

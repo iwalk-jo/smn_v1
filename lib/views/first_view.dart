@@ -1,6 +1,8 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:auto_size_text/auto_size_text.dart';
 import 'package:smn_v1/theme.dart';
+// import 'package:smn_v1/widgets/app_logo.dart';
 import 'package:smn_v1/widgets/custom_dialog.dart';
 
 class FirstView extends StatelessWidget {
@@ -33,11 +35,12 @@ class FirstView extends StatelessWidget {
 
     return WillPopScope(
       onWillPop: _onBackPressed,
-          child: Scaffold(
+      child: Scaffold(
         body: Container(
           width: _width,
           height: _height,
           color: Theme.of(context).primaryColor,
+          // color: Colors.white,
           child: SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -50,26 +53,41 @@ class FirstView extends StatelessWidget {
             Container(
                   child: Stack(
                     children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
-                        child: Text('Hello',
-                            style: TextStyle(
-                                  fontSize: 80.0, fontWeight: FontWeight.bold)),
+                       Container(
+                        padding: EdgeInsets.fromLTRB(15.0, 50.0, 0.0, 0.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: <Widget>[
+                            SizedBox(
+                              width: 400,
+                              height: 300,
+                              child: Image.asset('assets/images/vertical_logo_name.png')
+                            )
+                            // ShowLogo(),
+                            // CircularProgressIndicator(strokeWidth: 3, valueColor: AlwaysStoppedAnimation(Color(0xFF43a047)),)
+                          ],
+                        ),
                       ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
-                        child: Text('There',
-                            style: TextStyle(
-                                  fontSize: 80.0, fontWeight: FontWeight.bold)),
-                      ),
-                      Container(
-                        padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
-                        child: Text('.',
-                            style: TextStyle(
-                                  fontSize: 80.0,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.green)),
-                          )
+                      // Container(
+                      //   padding: EdgeInsets.fromLTRB(15.0, 110.0, 0.0, 0.0),
+                      //   child: Text('Hello',
+                      //       style: TextStyle(
+                      //             fontSize: 80.0, fontWeight: FontWeight.bold)),
+                      // ),
+                      // Container(
+                      //   padding: EdgeInsets.fromLTRB(15.0, 175.0, 0.0, 0.0),
+                      //   child: Text('There',
+                      //       style: TextStyle(
+                      //             fontSize: 80.0, fontWeight: FontWeight.bold)),
+                      // ),
+                      // Container(
+                      //   padding: EdgeInsets.fromLTRB(220.0, 175.0, 0.0, 0.0),
+                      //   child: Text('.',
+                      //       style: TextStyle(
+                      //             fontSize: 80.0,
+                      //             fontWeight: FontWeight.bold,
+                      //             color: Colors.green)),
+                      //     )
                         ],
                       ),
                     ),
@@ -77,7 +95,10 @@ class FirstView extends StatelessWidget {
 
                     SizedBox(height: _height * 0.15),
                     RaisedButton(
-                      color: Colors.white,
+                      elevation: defaultTargetPlatform == TargetPlatform.android ? 8.0 : 0.0,
+                      // color: Colors.white,
+                      color: Theme.of(context).accentColor,
+                      splashColor: Colors.blueAccent,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30.0)),
                       child: Padding(
@@ -85,11 +106,13 @@ class FirstView extends StatelessWidget {
                             top: 10.0, bottom: 10.0, left: 30.0, right: 30.0),
                         child: Text(
                           "Get Started",
-                          style: TextStyle(
-                            color: primaryColor,
-                            fontSize: 28,
-                            fontWeight: FontWeight.w300,
-                          ),
+                          style: radioSelectedTextStyle
+                          // style: TextStyle(
+                          //   // color: primaryColor,
+                            // color: Colors.black,
+                          //   fontSize: 28,
+                          //   fontWeight: FontWeight.w400,
+                          // ),
                         ),
                       ),
                       onPressed: () {
@@ -112,15 +135,19 @@ class FirstView extends StatelessWidget {
                     SizedBox(height: 15.0),
                     SizedBox(height: _height * 0.05),
                     RaisedButton(
-                      color: Colors.white,
+                      elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
+                      // color: Colors.white,
+                      // color: Theme.of(context).primaryColor,
+                      color: Theme.of(context).accentColor,
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0)),
+                          borderRadius: BorderRadius.circular(20.0)),
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 20.0,),
                         child: Text(
                           "Sign In",
-                          style: TextStyle(
-                            color: Colors.green, fontSize: 28, fontWeight: FontWeight.w300),
+                          // style: TextStyle(
+                          //   color: Colors.grey, fontSize: 28, fontWeight: FontWeight.w300),
+                          style: radioSelectedTextStyle
                         ),
                       ),
                       onPressed: () {

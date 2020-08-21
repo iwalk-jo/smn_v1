@@ -41,7 +41,7 @@ class CustomRadioButton extends StatelessWidget {
   @override 
   Widget build(BuildContext context) {
     return Material(
-      elevation: isCurrentActive ? 4.0 : 0.0,
+      elevation: isCurrentActive ? 8.0 : 0.0,
       borderRadius: 
       isCurrentActive ? BorderRadius.all(Radius.circular(20.0)) : null,
       child: Container(

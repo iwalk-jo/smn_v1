@@ -20,6 +20,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primaryColor: primaryColor,
           // primarySwatch: Colors.blue,
+          accentColor: const Color(0xFFBDBC55),
+          primaryColorBrightness: Brightness.dark,
         ),
         debugShowCheckedModeBanner: false,
 
@@ -32,7 +34,7 @@ class MyApp extends StatelessWidget {
               SignUpView(authFormType: AuthFormType.signUpParent),
           '/signIn': (BuildContext context) =>
               SignUpView(authFormType: AuthFormType.signIn),
-          '/homePage': (BuildContext context) => HomeController(), 
+          '/home': (BuildContext context) => HomeController(), 
           // '/parentPage': (BuildContext context) => HomeController(),
           // '/studentPage': (BuildContext context) => HomeController(),
         },
@@ -50,7 +52,7 @@ class HomeController extends StatelessWidget {
       builder: (context, AsyncSnapshot<String> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           final bool signedIn = snapshot.hasData;
-          return signedIn ? HomePage() : FirstView();
+          return signedIn ? Home() : FirstView();
         }
         return CircularProgressIndicator();
       },

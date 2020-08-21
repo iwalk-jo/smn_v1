@@ -9,11 +9,19 @@ class Provider extends InheritedWidget {
     this.auth,
   }) : super(key: key, child: child);
 
+  // final AuthService user;
+  // Provider({
+  //   Key key,
+  //   Widget child,
+  //   this.user,
+  // }) : super(key: key, child: child);
+
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) {
     return true;
   }
 
   static Provider of(BuildContext context) =>
-      (context.inheritFromWidgetOfExactType(Provider) as Provider);
+      // (context.inheritFromWidgetOfExactType(Provider) as Provider);
+  (context.dependOnInheritedWidgetOfExactType());
 }

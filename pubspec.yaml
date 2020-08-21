@@ -20,8 +20,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cloud_firestore: ^0.12.9
+  cloud_firestore: ^0.13.4+1
   firebase_auth: ^0.15.3
+  firebase_core: ^0.4.4+2
   google_sign_in: ^4.0.4
   apple_sign_in: ^0.1.0
 
@@ -29,17 +30,26 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_cupertino_date_picker: ^1.0.12
-  intl: 0.15.7
+  intl: 0.16.1
   date_range_picker: ^1.0.3
   auto_size_text: ^2.0.2
   flutter_spinkit: ^3.1.0
   flutter_auth_buttons: ^0.5.0
   dio: ^2.1.13
-  uuid: 2.0.1
+  uuid: 2.0.4
   device_info: ^0.4.1+4
   after_layout: ^1.0.7
   font_awesome_flutter: ^8.5.0
   qr_flutter: ^3.1.0
+  google_fonts: ^0.3.2
+  flutter_bloc: ^3.2.0
+  http: ^0.12.0+4
+  async: ^2.4.0
+  provider: ^4.0.4
+  provider_architecture: ^1.0.6
+  get_it: ^4.0.0
+  mysql1: ^0.17.1
+
 
 dev_dependencies:
   flutter_test:
@@ -56,9 +66,20 @@ flutter:
   uses-material-design: true
   # To add assets to your application, add an assets section, like this:
   assets:
-   - assets/images/logo.png
+   - assets/images/appstore.png
+   - assets/images/playstore.png
+   - assets/images/logo_bw.png
+   - assets/images/logo_color.png
+   - assets/images/vertical_logo_name.png
+   - assets/images/vertical_logo.png
+   - assets/images/landscape_logo_black.png
+   - assets/images/landscape_logo_white.png
    - assets/images/qrcode.png
-   - assets/images/images.jpg
+  #  - images/border_corner.png
+   - assets/images/corners_top.png
+  #  - images/corners_bottom.png
+  #  - images/square_corners.png
+  #  - images/images.jpg
   #  - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

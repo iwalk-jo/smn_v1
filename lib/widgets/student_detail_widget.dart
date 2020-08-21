@@ -1,56 +1,42 @@
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smn_v1/theme.dart';
+// import 'package:smn_v1/widgets/provider_widget.dart';
 
 class StudentDetailWidget extends StatelessWidget {
-  final String  studentIdNumber, firstName, lastName, dateOfBirth, studentClass;
+  final String  studentID, firstName, lastName, studentClass;
+
+  
 
   StudentDetailWidget(
-    {@required this.studentIdNumber,
+    {@required this.studentID,
     @required this.firstName,
     @required this.lastName,
-    @required this.dateOfBirth,
     @required this.studentClass});
 
 
+
+  // Stream<QuerySnapshot> getUserStudentsStreamSnapshots(BuildContext context) async* {
+  //     final uid = await Provider.of(context).auth.getCurrentUID();
+  //     yield* Firestore.instance.collection('userData').document(uid).collection('students').snapshots();
+  //   }
   @override 
   Widget build(BuildContext context) {
+
     return Column(
     crossAxisAlignment: CrossAxisAlignment.start,  
       children: <Widget>[
-        buildDetailColumn("student Id Number", studentIdNumber),
+        buildDetailColumn("student ID : ", studentID),
+              SizedBox(height: 10.0),
+        buildDetailColumn("first Name : ", firstName),
+
               SizedBox(height: 2.0),
-                      Container(
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-              SizedBox(height: 2.0),
-        buildDetailColumn("first Name", firstName),
-              SizedBox(height: 2.0),
-                      Container(
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-              SizedBox(height: 2.0),
-        buildDetailColumn("last Name", lastName),
-              SizedBox(height: 2.0),
-                      Container(
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-              SizedBox(height: 2.0),
-        buildDetailColumn("date Of Birth", dateOfBirth),
-              SizedBox(height: 2.0),
-                      Container(
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-              SizedBox(height: 2.0),
-        buildDetailColumn("Class", studentClass),
-                              Container(
-                      height: 0.5,
-                      color: Colors.white,
-                    ),
-              SizedBox(height: 2.0),
+        buildDetailColumn("last Name : ", lastName),
+              SizedBox(height: 10.0),
+    
+        buildDetailColumn("Class :", studentClass),
+              SizedBox(height: 5.0),
       ],
       );
   }
@@ -64,5 +50,6 @@ class StudentDetailWidget extends StatelessWidget {
     ],
   );
 
+ 
 
 }

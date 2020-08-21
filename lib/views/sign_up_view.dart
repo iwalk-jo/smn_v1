@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+// import 'package:smn_v1/widgets/loading.dart';
 import 'package:smn_v1/widgets/provider_widget.dart';
 import 'package:smn_v1/services/auth_service.dart';
 // import 'package:smn_v1/views/first_view.dart';
@@ -18,6 +19,8 @@ enum AuthFormType { signIn, signUpStudent, signUpParent, reset }
 class SignUpView extends StatefulWidget {
   final AuthFormType authFormType;
 
+  
+
   SignUpView({Key key, @required this.authFormType}) : super(key: key);
 
   @override
@@ -28,6 +31,8 @@ class SignUpView extends StatefulWidget {
 class _SignUpViewState extends State<SignUpView> {
   AuthFormType authFormType;
   // bool _showAppleSignIn = false;
+
+  // bool _loading = false;
 
   // @override
   // void initState() {
@@ -48,25 +53,60 @@ class _SignUpViewState extends State<SignUpView> {
   //     }
   //   }
   // }
+
+// String _selectedRole ='';
+// String get selectedRole => _selectedRole;
+
+// void setSelectedRole(String role) {
+//   _selectedRole = role;
+//   notifyListeners();
+//   // authFormType();
+// }
+ 
+
+// void setSelectedRole(String userRole) {
+//   // _selectedRole = userRole;
+//        if (authFormType == AuthFormType.signUpStudent) {
+//       _userRole = "isStudent";
+//     } else if (authFormType == AuthFormType.signUpParent) {
+//       _userRole = "isParent";  
+//   }
+  
+// }
+
+  // bool _isHidden = true;
+  // void _toggleVisibility(){
+  //   setState(() {
+  //     _isHidden = !_isHidden;
+  //   });
+  // }
+
   _SignUpViewState({this.authFormType});
 
+
+
   final formKey = GlobalKey<FormState>();
-  String _email, _password, _studentIdNumber, _firstName, _lastName, _phone, _dateOfBirth, _studentClass, _warning;
+  String _email, _password, _studentID, _firstName, _lastName, _phone, _warning;
 
   void switchFormState(String state) {
     formKey.currentState.reset();
     if (state == "signUpStudent") {
       setState(() {
+        // _userRole = "isStudent";
         authFormType = AuthFormType.signUpStudent;
       });
     } else if (state == "signUpParent"){
       setState(() {
+        // _userRole = "isParent"; 
         authFormType = AuthFormType.signUpParent;
       });
-    }
+    } 
+     // check function or remove
     // else if (state == 'home') {
     //   Navigator.of(context).pop();
     // }
+      // check function or remove
+
      else  {
       setState(() {
         authFormType = AuthFormType.signIn;
@@ -88,6 +128,8 @@ class _SignUpViewState extends State<SignUpView> {
 
   void submit() async {
     if (validate()) {
+      // setState(() => loading = true);
+
       try {
         final auth = Provider.of(context).auth;
         switch (authFormType) {
@@ -107,13 +149,13 @@ class _SignUpViewState extends State<SignUpView> {
               break;
           case AuthFormType.signUpStudent:
           // String uid =
-              await auth.createUserWithEmailAndPassword(_email, _password, _studentIdNumber, _firstName, _lastName, _dateOfBirth, _phone, _studentClass);
+              await auth.createUserWithEmailAndPassword(_email, _password, _studentID, _firstName, _lastName, null,);
               // print("Signed Up with New ID $uid");
               Navigator.of(context).pushReplacementNamed('/home');
               break;
           case AuthFormType.signUpParent:
           // String uid =
-              await auth.createUserWithEmailAndPassword(_email, _password, null, _firstName, _lastName, null, _phone, null);
+              await auth.createUserWithEmailAndPassword(_email, _password, null, _firstName, _lastName, _phone,);
               // print("Signed Up with New ID $uid");
               Navigator.of(context).pushReplacementNamed('/home');
               break;
@@ -122,6 +164,9 @@ class _SignUpViewState extends State<SignUpView> {
         print(e);
         setState(() {
           _warning = e.message;
+
+          // loading = false;
+
         });
       }
     }
@@ -132,6 +177,9 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+
+    // bool _loading = false;
+
      
     // if (authFormType == AuthFormType.anonymous) {
     //   submitAnonymous();
@@ -166,35 +214,50 @@ class _SignUpViewState extends State<SignUpView> {
     //   );
     // }
  
-    return Scaffold(
+    // return loading ? Loading() : Scaffold(
+      return Scaffold(     
         body:  SingleChildScrollView(
         scrollDirection: Axis.vertical,
-        child: Container(
+        child: Container( 
           padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
-          color: Theme.of(context).primaryColor,
+          // color: Theme.of(context).primaryColor,
+          color: Colors.white,
           height: _height,
           width: _width,
-          child: SafeArea(
-            child: ListView(
+          child: SafeArea(        
+            child: ListView(      
               shrinkWrap: true,
               children: <Widget>[
-              Column(
-  
+              Column(  
                  mainAxisAlignment: MainAxisAlignment.center,
   
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
   
                   children: <Widget>[
+                  // _showLogo = true,
   
                     SizedBox(height: _height * 0.025),
   
                     showAlert(),
   
                     SizedBox(height: _height * 0.025),
-  
-                    buildHeaderText(),
+
+                      Padding(
+                      // padding: const EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                      child: showLogo(true),
+                    ),
+
+                    SizedBox(height: _height * 0.05),
+
+                    Padding(
+                      // padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.only(right: 20.0, left: 20.0),
+                      child: buildHeaderText(),
+                    ),
   
                     SizedBox(height: _height * 0.05),
+
   
                     Padding(
   
@@ -217,7 +280,7 @@ class _SignUpViewState extends State<SignUpView> {
                   ],
   
                 ),
-],
+              ],
             ),
           ),
         ),
@@ -274,22 +337,37 @@ class _SignUpViewState extends State<SignUpView> {
       _headerText,
       maxLines: 1,
       textAlign: TextAlign.center,
-      style: mediumTextStyle
+      style: bigTextStyle
     );
   }
+
+
+// void userRole(String userRole){
+//   _userRole = userRole;
+//   notifyl
+// }
+
+//   Widget userRole(){
+//      if (authFormType == AuthFormType.signUpStudent) {
+//       _userRole = "isStudent";
+//     } else if (authFormType == AuthFormType.signUpParent) {
+//       _userRole = "isParent";  
+//   }
+
+
+
 
 
 
 // reset password
   List<Widget> buildInputs() {
-    List<Widget> textFields = [];
-    
+    List<Widget> textFields = []; 
     if (authFormType == AuthFormType.reset) {
       textFields.add(
         TextFormField(
           validator: EmailValidator.validate,
           style: TextStyle(fontSize: 22.0),
-          decoration: buildSignUpInputDecoration("Email"),
+          decoration: buildSignUpInputDecoration("Enter your email address"),
           onSaved: (value) => _email = value,
         ),
       );
@@ -357,6 +435,7 @@ class _SignUpViewState extends State<SignUpView> {
     
     
     if ([AuthFormType.signUpStudent].contains(authFormType)) {
+      
       textFields.add(
         TextFormField(
           validator: NameValidator.validate,
@@ -377,45 +456,17 @@ class _SignUpViewState extends State<SignUpView> {
         ),
       );
 
-      textFields.add(SizedBox(height: 10));
-
-       textFields.add(
-        TextFormField(
-          style: TextStyle(fontSize: 22.0),
-          decoration: buildSignUpInputDecoration("Phone Number"),
-          onSaved: (value) => _phone = value,
-        ),
-      );
-
        textFields.add(SizedBox(height: 10));
 
        textFields.add(
         TextFormField(
           validator: StudentIdNumberValidator.validate,
           style: TextStyle(fontSize: 22.0),
-          decoration: buildSignUpInputDecoration("Student Id Number"),
-          onSaved: (value) => _studentIdNumber = value,
+          decoration: buildSignUpInputDecoration("Student ID Number"),
+          onSaved: (value) => _studentID = value,
         ),
       );
 
-       textFields.add(SizedBox(height: 10));
-
-       textFields.add(
-        TextFormField(
-          style: TextStyle(fontSize: 22.0),
-          decoration: buildSignUpInputDecoration("Date Of Birth"),
-          onSaved: (value) => _dateOfBirth = value,
-        ),
-      );
-        textFields.add(SizedBox(height: 10));
-
-       textFields.add(
-        TextFormField(
-          style: TextStyle(fontSize: 22.0),
-          decoration: buildSignUpInputDecoration("Class"),
-          onSaved: (value) => _studentClass = value,
-        ),
-      );
 
       textFields.add(SizedBox(height: 10));
        // add email & password
@@ -485,12 +536,14 @@ class _SignUpViewState extends State<SignUpView> {
       
       filled: true,
       fillColor: Colors.white,
-      focusColor: Colors.white,
+      focusColor: Theme.of(context).primaryColor,
       enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white, width: 0.0)),
+          borderSide: BorderSide(color: primaryColor, width: 0.0)),
       contentPadding:
           const EdgeInsets.only(left: 14.0, bottom: 10.0, top: 10.0),
+
     );
+    
   }
 
   List<Widget> buildButtons() {
@@ -498,25 +551,16 @@ class _SignUpViewState extends State<SignUpView> {
     bool _showForgotPassword = false;
     bool _showSocial = true;
 
-    // if (authFormType == AuthFormType.signIn) {
-    //   _switchButtonText = "Create New Student Account";
-    //   _newFormState = "signUpStudent";
-    //   _submitButtonText = "Sign In As Student";
-    // } else {
-    //   _switchButtonText = "Have an Account? Sign In";
-    //   _newFormState = "signIn";
-    //   _submitButtonText = "Sign Up As Student";
-    // }
-
     if (authFormType == AuthFormType.signIn) {
       _switchButtonText = "Don't Have An Account ?";
-      _newFormState = "/firstview";
+      _newFormState = "signUpParent";
       _submitButtonText = "Sign In";
       _showForgotPassword = true;
+      // _userRole = "isStudent";
     } else if (authFormType == AuthFormType.reset) {
       _switchButtonText = "Return to Sign In";
       _newFormState = "signIn";
-      _submitButtonText = "Submit";
+      _submitButtonText = "Reset";
       _showSocial = false;
     } else if (authFormType == AuthFormType.signUpStudent) {
       _switchButtonText = "Register As Parent";
@@ -529,7 +573,7 @@ class _SignUpViewState extends State<SignUpView> {
     } else {
       _switchButtonText = "Have an Account? Sign In";
       _newFormState = "signIn";
-      _submitButtonText = "*Sign Up*";
+      _submitButtonText = "Sign In";
     }
 
     return [
@@ -538,13 +582,13 @@ class _SignUpViewState extends State<SignUpView> {
         child: RaisedButton(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
-          color: Colors.white,
-          textColor: primaryColor,
+          color: primaryColor,
+          textColor: Colors.white,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
               _submitButtonText,
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w300),
+              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600),
             ),
           ),
           onPressed: submit,
@@ -554,7 +598,7 @@ class _SignUpViewState extends State<SignUpView> {
       FlatButton(
         child: Text(
           _switchButtonText,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: primaryColor),
         ),
         onPressed: () {
           switchFormState(_newFormState);
@@ -569,7 +613,7 @@ class _SignUpViewState extends State<SignUpView> {
       child: FlatButton(
         child: Text(
           "Forgot Password?",
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.grey),
         ),
         onPressed: () {
           setState(() {
@@ -587,7 +631,7 @@ class _SignUpViewState extends State<SignUpView> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Divider(color: Colors.white,),
+              Divider(color: primaryColor,),
               SizedBox(height: 10),
               GoogleSignInButton(
                 onPressed: () async {
@@ -606,9 +650,30 @@ class _SignUpViewState extends State<SignUpView> {
           visible: visible,
         );
   }
-  // @override
-  // void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-  //   super.debugFillProperties(properties);
-  //   properties.add(StringProperty('_error', _warning));
-  // }
+
+    Widget showLogo(bool visible) {
+    return Visibility(
+    child: Container(
+      child: Padding(
+        padding: const EdgeInsets.only(top: 10.0, right: 20.0, left: 20.0, bottom: 10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SizedBox(
+                    width: 300,
+                    height: 100,
+                    child: Image.asset('assets/images/logo_color.png')),
+                ]
+        ),
+      ),
+    ),
+      visible: visible,
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('_error', _warning));
+  }
 }
